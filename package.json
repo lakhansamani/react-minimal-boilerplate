@@ -1,0 +1,47 @@
+{
+	"name": "react-minimal-boilerplate",
+	"version": "1.0.0",
+	"description": "Minimal boilerplate for starting react project",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "NODE_ENV=development webpack-dev-server --open --mode development --content-base dist/ --history-api-fallback --hot --progress --colors",
+		"build": "NODE_ENV=production webpack",
+		"format": "prettier --write --use-tabs 'src/**/*.js'",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Lakhan Samani <lakhan.m.samani@gmail.com",
+	"license": "MIT",
+	"devDependencies": {
+		"@babel/core": "^7.4.4",
+		"@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+		"@babel/plugin-syntax-dynamic-import": "^7.2.0",
+		"@babel/plugin-transform-spread": "^7.2.2",
+		"@babel/preset-env": "^7.4.4",
+		"@babel/preset-react": "^7.0.0",
+		"babel-eslint": "^10.0.1",
+		"babel-loader": "^8.0.5",
+		"copy-webpack-plugin": "^5.0.3",
+		"eslint": "^5.16.0",
+		"eslint-config-airbnb": "^17.1.0",
+		"eslint-config-prettier": "^4.2.0",
+		"eslint-plugin-import": "^2.17.2",
+		"eslint-plugin-jest": "^22.5.1",
+		"eslint-plugin-jsx-a11y": "^6.2.1",
+		"eslint-plugin-prettier": "^3.0.1",
+		"eslint-plugin-react": "^7.13.0",
+		"html-webpack-harddisk-plugin": "^1.0.1",
+		"html-webpack-plugin": "^3.2.0",
+		"prettier": "^1.17.0",
+		"webpack": "^4.30.0",
+		"webpack-cli": "^3.3.2",
+		"webpack-dev-server": "^3.3.1",
+		"write-file-webpack-plugin": "^4.5.0"
+	},
+	"dependencies": {
+		"clean-webpack-plugin": "^2.0.2",
+		"file-loader": "^3.0.1",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"style-loader": "^0.23.1"
+	}
+}
