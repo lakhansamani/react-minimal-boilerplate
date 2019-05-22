@@ -5,6 +5,7 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteWebPackPlugin = require('write-file-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const { NODE_ENV } = process.env;
 
@@ -21,6 +22,7 @@ const plugins = [
 	new HtmlWebpackHarddiskPlugin(),
 	new CopyWebpackPlugin(['./public/favicon.ico', './public/manifest.json']),
 	new WriteWebPackPlugin(),
+	new Dotenv(),
 ];
 
 const isDevelopment = NODE_ENV === 'development';
