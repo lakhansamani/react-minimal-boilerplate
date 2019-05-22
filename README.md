@@ -17,6 +17,11 @@ Fully customizable React boilerplate, using latest `React`, `webpack` and `babel
 - `yarn build`
 - Production build will be part of `dist` folder
 
+### Testing
+
+- `yarn test`
+- If you change content of `src/App.js` then you might have to change the test in `src/App.test.js`. Also similary you can add test for more components.
+
 ### How to add env variables to the application
 
 - `cp .env.sample .env`
