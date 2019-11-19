@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import 'jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect';
 import App from './App';
 
 test('renders app', async () => {
