@@ -1,6 +1,6 @@
 # Minimal React Boilerplate
 
-Fully customizable React boilerplate, using latest `React`, `webpack` and `babel` version. It includes production build process + local development using `webpack-dev-server` with hot reload.
+Fully customizable React boilerplate, using latest `React`, `webpack` and `babel`. It includes production build process + local development using `webpack-dev-server` with hot reload.
 
 ## How to use?
 
