@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteWebPackPlugin = require('write-file-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
@@ -55,9 +55,6 @@ module.exports = {
 				use: [
 					{
 						loader: 'style-loader',
-						options: {
-							insertAt: 'top',
-						},
 					},
 					'css-loader',
 				],
