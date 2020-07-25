@@ -9,6 +9,7 @@ const Dotenv = require('dotenv-webpack');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 
@@ -37,6 +38,30 @@ const plugins = [
       : '[name].[chunkhash:8].css',
   }),
 ];
+
+if (!isDevelopment) {
+  plugins.push(
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+  );
+  plugins.push(
+    new CompressionPlugin({
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: {
+        level: 11,
+      },
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+  );
+}
 
 module.exports = {
   mode: NODE_ENV || isDevelopment,
