@@ -6,8 +6,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteWebPackPlugin = require('write-file-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const { NODE_ENV } = process.env;
+
+const isDevelopment = NODE_ENV === 'development';
 
 const plugins = [
   // Ignore all locale files of moment.js
@@ -25,9 +30,13 @@ const plugins = [
   }),
   new WriteWebPackPlugin(),
   new Dotenv(),
+  new MiniCssExtractPlugin({
+    filename: isDevelopment ? '[name].css' : '[name].[chunkhash:8].css',
+    chunkFilename: isDevelopment
+      ? '[name].bundle.css'
+      : '[name].[chunkhash:8].css',
+  }),
 ];
-
-const isDevelopment = NODE_ENV === 'development';
 
 module.exports = {
   mode: NODE_ENV || isDevelopment,
@@ -41,6 +50,7 @@ module.exports = {
       : '[name].[chunkhash:8].js',
   },
   optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     splitChunks: {
       cacheGroups: {
         // Splitting React into a different bundle
@@ -64,31 +74,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {
-              insert: function insertAtTop(element) {
-                const parent = document.querySelector('head');
-                // eslint-disable-next-line no-underscore-dangle
-                const lastInsertedElement =
-                  window._lastElementInsertedByStyleLoader;
-
-                if (!lastInsertedElement) {
-                  parent.insertBefore(element, parent.firstChild);
-                } else if (lastInsertedElement.nextSibling) {
-                  parent.insertBefore(element, lastInsertedElement.nextSibling);
-                } else {
-                  parent.appendChild(element);
-                }
-
-                // eslint-disable-next-line no-underscore-dangle
-                window._lastElementInsertedByStyleLoader = element;
-              },
-            },
-          },
-          'css-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.svg$/,
