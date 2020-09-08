@@ -19,9 +19,7 @@ const isDevelopment = NODE_ENV === 'development';
 const plugins = [
   // Ignore all locale files of moment.js
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-  new CleanWebpackPlugin({
-    cleanOnceBeforeBuildPatterns: ['dist/app'],
-  }),
+  new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
     template: './public/index.html',
     alwaysWriteToDisk: true,
@@ -33,10 +31,10 @@ const plugins = [
   new WriteWebPackPlugin(),
   new Dotenv(),
   new MiniCssExtractPlugin({
-    filename: isDevelopment ? '[name].css' : '[name].[chunkhash:8].css',
+    filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
     chunkFilename: isDevelopment
       ? '[name].bundle.css'
-      : '[name].[chunkhash:8].css',
+      : '[name].[contenthash:8].css',
   }),
 ];
 
@@ -74,12 +72,16 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: isDevelopment ? '[name].js' : '[name].[chunkhash:8].js',
+    filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js',
     chunkFilename: isDevelopment
       ? '[name].bundle.js'
-      : '[name].[chunkhash:8].js',
+      : '[name].[contenthash:8].js',
   },
   optimization: {
+    moduleIds: 'hashed',
+    runtimeChunk: {
+      name: 'manifest',
+    },
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     splitChunks: {
       cacheGroups: {
